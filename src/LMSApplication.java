@@ -4,22 +4,25 @@ public class LMSApplication {
     public static void main(String[] args) {
         CourseService courseService = CourseService.getInstance();
         StudentService studentService = StudentService.getInstance();
+        AssignmentService assignmentService = AssignmentService.getInstance();
         Scanner scanner = new Scanner(System.in);
 
         while (true){
             System.out.println("\n--- Main Menu ---");
-            System.out.println("1. Course Management");
-            System.out.println("2. Student Management");
-            System.out.println("3. Exit");
+            System.out.println("1. Student Management");
+            System.out.println("2. Course Management");
+            System.out.println("3. Assignment Management");
+            System.out.println("4. Exit");
             System.out.print("Choose an option: ");
 
             int mainChoice = scanner.nextInt();
             scanner.nextLine();
 
             switch (mainChoice){
-                case 1 -> manageCourses(courseService, scanner);
-                case 2 -> manageStudents(studentService,scanner);
-                case 3 -> {
+                case 1 -> manageStudents(studentService,scanner);
+                case 2 -> manageCourses(courseService, scanner);
+                case 3 -> manageAssignments(assignmentService, courseService, scanner);
+                case 4 -> {
                     System.out.println("Exiting LMS...");
                     scanner.close();
                     return;
@@ -94,6 +97,46 @@ public class LMSApplication {
                     System.out.println("Enter course ID: ");
                     String courseIdToEnroll = scanner.nextLine();
                     studentService.enrollStudent(studentIdToEnrol, courseIdToEnroll, courseService);
+                }
+                case 4 -> {
+                    return;
+                }
+                default -> System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    private static void manageAssignments(AssignmentService assignmentService, CourseService courseService, Scanner scanner){
+        while (true){
+            System.out.println("\n--- Assignment Management ---");
+            System.out.println("1. Add Assignment");
+            System.out.println("2. List Assignment for a course");
+            System.out.println("3. Record grade for an assignment");
+            System.out.println("4. Back to Main Menu");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            switch (choice){
+                case 1 -> {
+                    System.out.println("Enter assignment title: ");
+                    String title = scanner.nextLine();
+                    System.out.println("Enter course ID: ");
+                    String courseId = scanner.nextLine();
+                    assignmentService.addAssignment(title, courseId, courseService);
+                }
+                case 2 -> {
+                    System.out.println("Enter course ID: ");
+                    String listCourseId = scanner.nextLine();
+                    assignmentService.listAssignments(listCourseId);
+                }
+                case 3 -> {
+                    System.out.println("Enter assignment title: ");
+                    String assignmentTitle = scanner.nextLine();
+                    System.out.println("Enter student ID: ");
+                    String studentId = scanner.nextLine();
+                    System.out.println("Enter grade");
+                    double grade = scanner.nextDouble();
+                    assignmentService.recordGrade(assignmentTitle, studentId, grade);
                 }
                 case 4 -> {
                     return;
