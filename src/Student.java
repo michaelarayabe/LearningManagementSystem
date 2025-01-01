@@ -41,7 +41,7 @@ public class Student {
         return "Student{" +
                 "studentId='" + studentId + '\'' +
                 ", name='" + name + '\'' +
-                ", entrolledCourses=" + enrolledCourses +
+                ", enrolledCourses=" + enrolledCourses +
                 '}';
     }
 }

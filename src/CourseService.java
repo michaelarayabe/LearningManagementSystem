@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CourseService {
@@ -16,6 +18,10 @@ public class CourseService {
             instance = new CourseService();
         }
         return instance;
+    }
+
+    public Map<String, Course> getCourses(){
+        return courses;
     }
 
     public void addCourse(String courseId, String name){
