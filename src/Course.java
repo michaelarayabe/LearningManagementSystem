@@ -36,6 +36,12 @@ public class Course {
         this.students = students;
     }
 
+    public void addStudentToCourse(String studentId){
+        if(!students.contains(studentId)){
+            students.add(studentId);
+        }
+    }
+
     @Override
     public String toString(){
         return "Course{" +
