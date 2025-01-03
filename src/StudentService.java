@@ -17,6 +17,14 @@ public class StudentService {
         return instance;
     }
 
+    //Student search funtionality
+    public Student searchStudent(String keyword){
+        return students.values().stream()
+                .filter(student -> student.getName().contains(keyword) || student.getStudentId().equals(keyword))
+                .findFirst()
+                .orElse(null);
+    }
+
     public void addStudent(String studentId, String name){
         if(students.containsKey(studentId)){
             System.out.println("Student with ID " + studentId + " already exists");

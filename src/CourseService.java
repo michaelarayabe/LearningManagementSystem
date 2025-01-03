@@ -20,6 +20,14 @@ public class CourseService {
         DataPersistenceService.saveData("courses.dat", courses);
     }
 
+    //Course search functionality
+    public Course searchCourse(String keyword){
+        return courses.values().stream()
+                .filter(course -> course.getName().contains(keyword) || course.getCourseId().equals(keyword))
+                .findFirst()
+                .orElse(null);
+    }
+
     public static CourseService getInstance(){
         if(instance == null){
             instance = new CourseService();
