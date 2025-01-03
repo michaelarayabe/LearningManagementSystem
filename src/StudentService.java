@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,6 +64,21 @@ public class StudentService {
         student.enrollCourse(courseId);
         course.addStudentToCourse(studentId);
         System.out.println("Student with ID " + studentId + " enrolled in course " + courseId + " .");
+    }
+
+    public void bulkEnroll(String filename, CourseService courseService){
+        try(BufferedReader br = new BufferedReader(new FileReader())){
+            String line;
+            while((line = br.readLine()) != null){
+                String[] parts = line.split(",");
+                if(parts.length == 2){
+                    enrollStudent(parts[0], parts[1], courseService);
+                }
+            }
+            System.out.println("Bulk enrollment completed.");
+        } catch (IOException e){
+            System.out.println("Error during bulk enrollment: " + e.getMessage());
+        }
     }
 
     public Map<String, Student> getStudents(){
