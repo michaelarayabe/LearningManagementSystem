@@ -5,6 +5,7 @@ public class LMSApplication {
         CourseService courseService = CourseService.getInstance();
         StudentService studentService = StudentService.getInstance();
         AssignmentService assignmentService = AssignmentService.getInstance();
+        ReportingService reportingService = ReportingService.getInstance();
         Scanner scanner = new Scanner(System.in);
 
         while (true){
@@ -12,7 +13,8 @@ public class LMSApplication {
             System.out.println("1. Student Management");
             System.out.println("2. Course Management");
             System.out.println("3. Assignment Management");
-            System.out.println("4. Exit");
+            System.out.println("4. Report Management");
+            System.out.println("5. Exit");
             System.out.print("Choose an option: ");
 
             int mainChoice = scanner.nextInt();
@@ -22,7 +24,8 @@ public class LMSApplication {
                 case 1 -> manageStudents(studentService,scanner);
                 case 2 -> manageCourses(courseService, scanner);
                 case 3 -> manageAssignments(assignmentService, courseService, scanner);
-                case 4 -> {
+                case 4 -> manageReports(reportingService,studentService,courseService,assignmentService,scanner);
+                case 5 -> {
                     System.out.println("Exiting LMS...");
                     scanner.close();
                     return;
@@ -30,8 +33,6 @@ public class LMSApplication {
                 default -> System.out.println("Invalid choice. Please try again");
             }
         }
-
-
 
     }
 
@@ -142,6 +143,34 @@ public class LMSApplication {
                     return;
                 }
                 default -> System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    public static void manageReports(ReportingService reportingService, StudentService studentService, CourseService courseService, AssignmentService assignmentService, Scanner scanner){
+        while(true){
+            System.out.println("\n--- Reporting--- ");
+            System.out.println("1. View Grades for a Student");
+            System.out.println("2. View Grades for a Course");
+            System.out.println("3. Back to Main Menu");
+            System.out.println("Choose an option: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1 -> {
+                    System.out.println("Enter student ID: ");
+                    String studentId = scanner.nextLine();
+
+                    reportingService.viewStudentGrades(studentId, studentService, assignmentService);
+                }
+                case 2 -> {
+                    System.out.println("Enter Course ID: ");
+                    String courseId = scanner.nextLine();
+                    reportingService.viewCourseGrades(courseId, courseService, assignmentService);
+                }
+                case 3 -> {return;}
+                default -> System.out.println("Invalid choice. Please tyr again.");
             }
         }
     }
