@@ -46,4 +46,8 @@ public class AssignmentService {
         assignment.setGrades(studentId, grade);
         System.out.println("Grade recorded for student " + studentId + " in assignment " + assignmentTitle + " . ");
     }
+
+    public Map<String, Assignment> getAssignments(){
+        return assignments;
+    }
 }

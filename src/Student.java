@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Student {
 
@@ -36,6 +37,7 @@ public class Student {
     public void enrollCourse(String courseId){
         enrolledCourses.add(courseId);
     }
+
 
     public String toString(){
         return "Student{" +

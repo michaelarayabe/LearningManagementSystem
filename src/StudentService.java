@@ -54,4 +54,8 @@ public class StudentService {
         course.addStudentToCourse(studentId);
         System.out.println("Student with ID " + studentId + " enrolled in course " + courseId + " .");
     }
+
+    public Map<String, Student> getStudents(){
+        return students;
+    }
 }
