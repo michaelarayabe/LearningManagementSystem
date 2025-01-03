@@ -9,8 +9,15 @@ public class CourseService {
 
     private static CourseService instance;
 
-    private CourseService(){
-        this.courses = new HashMap<>();
+    public CourseService(){
+        this.courses = (Map<String, Course>) DataPersistenceService.loadData("course.dat");
+        if(this.courses == null){
+            this.courses = new HashMap<>();
+        }
+    }
+
+    public void saveCourses(){
+        DataPersistenceService.saveData("courses.dat", courses);
     }
 
     public static CourseService getInstance(){
